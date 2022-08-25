@@ -8,11 +8,11 @@ using QC = Microsoft.Data.SqlClient;
 
 namespace ConsoleFlashCardsGame
 {
-    public class DBManager
+    public class DbManager
     {
         readonly String _connectionString;
 
-        public DBManager()
+        public DbManager()
         {
             _connectionString = ConfigurationManager.ConnectionStrings["FlashCardsDBConnectionString"].ConnectionString;
         }

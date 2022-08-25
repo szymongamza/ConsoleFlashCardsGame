@@ -7,7 +7,7 @@ namespace ConsoleFlashCardsGame
 	{
 		static public void Main()
         {
-			DBManager dbManager = new DBManager();
+			DbManager dbManager = new DbManager();
 			dbManager.TestDBConnection();
 			dbManager.PrepareDB();
 
