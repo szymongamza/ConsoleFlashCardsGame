@@ -8,7 +8,7 @@ namespace ConsoleFlashCardsGame
 {
     public class UserInterface
     {
-        InputManager inputManager = new InputManager();
+        InputValidation inputValidation = new InputValidation();
         public UserInterface()
         {
             MainMenuLoop();
@@ -28,7 +28,7 @@ namespace ConsoleFlashCardsGame
                 Console.WriteLine("|    Type 2 to Play FlashCards                |");
                 Console.WriteLine("+---------------------------------------------+");
 
-                int option = validationInput.IntInput("Choose option from above menu.");
+                int option = inputValidation.IntInput("Choose option from above menu.");
                 switch (option)
                 {
                     case 0:
@@ -36,13 +36,12 @@ namespace ConsoleFlashCardsGame
                         break;
                     case 1:
                         Console.Clear();
+                        //Show Stacks
                         ConfigureStacksMenu();
                         break;
                     default:
                         Console.Clear();
-                        Console.WriteLine("-----------------------------------------");
-                        Console.WriteLine("|       Choose option from menu!        |");
-                        Console.WriteLine("-----------------------------------------");
+                        ShowOptionError();
                         break;
                 }
 
@@ -50,14 +49,96 @@ namespace ConsoleFlashCardsGame
         }
         public void ConfigureStacksMenu()
         {
-            
-            Console.WriteLine("+---------------------------------------------+");
-            Console.WriteLine("|           CONFIGURE STACKS MENU             |");
-            Console.WriteLine("+---------------------------------------------+");
-            Console.WriteLine("|    Type 0 to go back                        |");
-            Console.WriteLine("|    Type 1 to Edit stack                     |");
-            Console.WriteLine("|    Type 2 to Delete stack                   |");
-            Console.WriteLine("+---------------------------------------------+");
+            bool goBack = false;
+            while (goBack == false)
+            {
+
+                Console.WriteLine("+---------------------------------------------+");
+                Console.WriteLine("|           CONFIGURE STACKS MENU             |");
+                Console.WriteLine("+---------------------------------------------+");
+                Console.WriteLine("|    Type 0 to go back                        |");
+                Console.WriteLine("|    Type 1 to Add stack                      |");
+                Console.WriteLine("|    Type 2 to Edit stack                     |");
+                Console.WriteLine("|    Type 3 to Delete stack                   |");
+                Console.WriteLine("+---------------------------------------------+");
+
+                int option = inputValidation.IntInput("Choose option from above menu.");
+                switch (option)
+                {
+                    case 0:
+                        Console.Clear();
+                        goBack = true;
+                        break;
+                    case 1:
+                        Console.Clear();
+                        break;
+                    case 2:
+                        Console.Clear();
+                        //Show cards
+                        EditStackMenu();
+                        break;
+                    case 3:
+                        Console.Clear();
+                        //Delete Stack
+                        break;
+                    default:
+                        Console.Clear();
+                        ShowOptionError();
+                        break;
+                }
+            }
+        }
+        public void EditStackMenu()
+        {
+            bool goBack = false;
+            while (goBack == false)
+            {
+
+                Console.WriteLine("+---------------------------------------------+");
+                Console.WriteLine("|              EDIT STACK MENU                |");
+                Console.WriteLine("+---------------------------------------------+");
+                Console.WriteLine("|    Type 0 to go back                        |");
+                Console.WriteLine("|    Type 1 to Change name of stack           |");
+                Console.WriteLine("|    Type 2 to Add card to stack              |");
+                Console.WriteLine("|    Type 3 to Edit card from stack           |");
+                Console.WriteLine("|    Type 4 to Delete card from stack         |");
+                Console.WriteLine("+---------------------------------------------+");
+
+                int option = inputValidation.IntInput("Choose option from above menu.");
+                switch (option)
+                {
+                    case 0:
+                        Console.Clear();
+                        goBack = true;
+                        break;
+                    case 1:
+                        Console.Clear();
+                        //ChangeNameOfStack();
+                        break;
+                    case 2:
+                        Console.Clear();
+                        //AddCardToStack();
+                        break;
+                    case 3:
+                        Console.Clear();
+                        //EditCard();
+                        break;
+                    case 4:
+                        Console.Clear();
+                        //DeleteCard();
+                        break;
+                    default:
+                        Console.Clear();
+                        ShowOptionError();
+                        break;
+                }
+            }
+        }
+        public void ShowOptionError()
+        {
+            Console.WriteLine("-----------------------------------------");
+            Console.WriteLine("|       Choose option from menu!        |");
+            Console.WriteLine("-----------------------------------------");
         }
     }
 }

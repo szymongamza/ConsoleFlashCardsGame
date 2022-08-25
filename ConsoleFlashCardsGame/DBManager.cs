@@ -10,7 +10,7 @@ namespace ConsoleFlashCardsGame
 {
     public class DbManager
     {
-        readonly String _connectionString;
+        readonly string _connectionString;
 
         public DbManager()
         {
