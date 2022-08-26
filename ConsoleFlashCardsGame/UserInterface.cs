@@ -6,15 +6,9 @@ using System.Threading.Tasks;
 
 namespace ConsoleFlashCardsGame
 {
-    public class UserInterface
+    public static class UserInterface
     {
-        InputValidation inputValidation = new InputValidation();
-        public UserInterface()
-        {
-            MainMenuLoop();
-        }
-
-        public void MainMenuLoop()
+        public static void MainMenuLoop()
         {
             Console.Clear();
             bool quitApp = false;
@@ -28,7 +22,7 @@ namespace ConsoleFlashCardsGame
                 Console.WriteLine("|    Type 2 to Play FlashCards                |");
                 Console.WriteLine("+---------------------------------------------+");
 
-                int option = inputValidation.IntInput("Choose option from above menu.");
+                int option = InputValidation.IntInput("Choose option from above menu.");
                 switch (option)
                 {
                     case 0:
@@ -36,7 +30,7 @@ namespace ConsoleFlashCardsGame
                         break;
                     case 1:
                         Console.Clear();
-                        //Show Stacks
+                        Console.WriteLine("SHOW TABLE HERE");
                         ConfigureStacksMenu();
                         break;
                     default:
@@ -47,7 +41,7 @@ namespace ConsoleFlashCardsGame
 
             }
         }
-        public void ConfigureStacksMenu()
+        public static void ConfigureStacksMenu()
         {
             bool goBack = false;
             while (goBack == false)
@@ -62,7 +56,7 @@ namespace ConsoleFlashCardsGame
                 Console.WriteLine("|    Type 3 to Delete stack                   |");
                 Console.WriteLine("+---------------------------------------------+");
 
-                int option = inputValidation.IntInput("Choose option from above menu.");
+                int option = InputValidation.IntInput("Choose option from above menu.");
                 switch (option)
                 {
                     case 0:
@@ -71,6 +65,7 @@ namespace ConsoleFlashCardsGame
                         break;
                     case 1:
                         Console.Clear();
+                        StacksController.CreateStack();
                         break;
                     case 2:
                         Console.Clear();
@@ -88,7 +83,7 @@ namespace ConsoleFlashCardsGame
                 }
             }
         }
-        public void EditStackMenu()
+        public static void EditStackMenu()
         {
             bool goBack = false;
             while (goBack == false)
@@ -104,7 +99,7 @@ namespace ConsoleFlashCardsGame
                 Console.WriteLine("|    Type 4 to Delete card from stack         |");
                 Console.WriteLine("+---------------------------------------------+");
 
-                int option = inputValidation.IntInput("Choose option from above menu.");
+                int option = InputValidation.IntInput("Choose option from above menu.");
                 switch (option)
                 {
                     case 0:
@@ -134,7 +129,7 @@ namespace ConsoleFlashCardsGame
                 }
             }
         }
-        public void ShowOptionError()
+        public static void ShowOptionError()
         {
             Console.WriteLine("-----------------------------------------");
             Console.WriteLine("|       Choose option from menu!        |");

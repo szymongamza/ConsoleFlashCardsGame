@@ -8,24 +8,21 @@ using QC = Microsoft.Data.SqlClient;
 
 namespace ConsoleFlashCardsGame
 {
-    public class DbManager
+    public static class DbManager
     {
-        readonly string _connectionString;
 
-        public DbManager()
+        public static string connectionString = ConfigurationManager.ConnectionStrings["FlashCardsDBConnectionString"].ConnectionString;
+
+        public static void PrepareDB()
         {
-            _connectionString = ConfigurationManager.ConnectionStrings["FlashCardsDBConnectionString"].ConnectionString;
-        }
-        public void PrepareDB()
-        {
-            using (var connection = new QC.SqlConnection(_connectionString))
+            using (var connection = new QC.SqlConnection(connectionString))
             {
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText = 
-                        $@" IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'stacks')
-                            CREATE TABLE stacks (
+                        $@" IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'stack')
+                            CREATE TABLE stack (
                                 Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
                                 Name varchar(100) NOT NULL UNIQUE
                             );
@@ -33,8 +30,8 @@ namespace ConsoleFlashCardsGame
                     command.ExecuteNonQuery();
 
                     command.CommandText =
-                        $@" IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'cards')
-                            CREATE TABLE cards (
+                        $@" IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'card')
+                            CREATE TABLE card (
                                 Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
                                 Question varchar(100) NOT NULL,
                                 Answer varchar(100) NOT NULL,
@@ -49,9 +46,9 @@ namespace ConsoleFlashCardsGame
             Console.WriteLine("Database ready for action.");
         }
 
-        public void TestDBConnection()
+        public static void TestDBConnection()
         {
-            using (var connection = new QC.SqlConnection(_connectionString))
+            using (var connection = new QC.SqlConnection(connectionString))
             {
                 connection.Open();
                 Console.WriteLine("Connected successfully.");

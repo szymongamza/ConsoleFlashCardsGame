@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ConsoleFlashCardsGame
 {
-    public class InputValidation
+    public static class InputValidation
     {
-        public string DateTimeInput(string outputText)
+        public static string DateTimeInput(string outputText)
         {
             Console.WriteLine($"Input {outputText} with format: yyyy-MM-dd hh:mm");
             var input = Console.ReadLine();
@@ -19,7 +19,7 @@ namespace ConsoleFlashCardsGame
             }
             return input;
         }
-        public int IntInput(string outputText)
+        public static int IntInput(string outputText)
         {
             Console.WriteLine($"{outputText}");
             var number = Console.ReadLine();
@@ -32,7 +32,7 @@ namespace ConsoleFlashCardsGame
             return returnNumber;
         }
 
-        public string StringInput(string outputText)
+        public static string StringInput(string outputText)
         {
             Console.WriteLine($"{outputText}");
             var input = Console.ReadLine();
