@@ -104,7 +104,6 @@ namespace ConsoleFlashCardsGame
                                 stack = StacksController.GetStackByName(input, stacks);
                             }
                             Console.Clear();
-                            //Show cards
                             StacksController.DeleteStack(stack);
                             break;
                         }
@@ -148,13 +147,43 @@ namespace ConsoleFlashCardsGame
                         CardsController.CreateCard(stack);
                         break;
                     case 3:
-                        Console.Clear();
-                        //EditCard();
+                        if (cards.Count == 0)
+                        {
+                            Console.WriteLine("There are no cards yet. Create one first!");
+                            break;
+                        }
+                        else
+                        {
+                            Card card = null;
+                            while (card == null)
+                            {
+                                int input = InputValidation.IntInput("Input id of the card to edit it:");
+                                card = CardsController.GetCardById(input, cards);
+                            }
+                            Console.Clear();
+                            CardsController.UpdateCard(card);
+                            break;
+                        }
                         break;
                     case 4:
-                        Console.Clear();
-                        //DeleteCard();
-                        break;
+                        if (cards.Count == 0)
+                        {
+                            Console.WriteLine("There are no cards yet. Create one first!");
+                            break;
+                        }
+                        else
+                        {
+                            Card card = null;
+                            while (card == null)
+                            {
+                                int input = InputValidation.IntInput("Input id of the card to edit it:");
+                                card = CardsController.GetCardById(input, cards);
+                            }
+                            Console.Clear();
+                            //Show cards
+                            CardsController.DeleteCard(card);
+                            break;
+                        }
                     default:
                         Console.Clear();
                         ShowOptionError();

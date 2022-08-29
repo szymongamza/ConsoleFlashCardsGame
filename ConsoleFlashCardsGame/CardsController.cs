@@ -59,5 +59,59 @@ namespace ConsoleFlashCardsGame
             TableVisualizer.ShowTable(cards, null);
             return cards;
         }
+        public static void DeleteCard(Card card)
+        {
+            SqlConnection connection = new SqlConnection(connectionString);
+            using (connection)
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandText =
+                    $@"DELETE FROM card WHERE Id = ('{card.Id}')";
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+            Console.WriteLine("Card successfully deleted.");
+        }
+        public static Card GetCardById(int id, List<Card> cards)
+        {
+            foreach (Card card in cards)
+            {
+                if (card.Id == id)
+                {
+                    return card;
+                }
+            }
+            return null;
+        }
+        public static void UpdateCard(Card card)
+        {
+            Console.WriteLine($@"Actual Question: {card.Question}");
+            Console.WriteLine("New card question: (Leave empty to leave actual)");
+            string input = Console.ReadLine();
+            if(input.Length > 0)
+            {
+                card.Question = input;
+            }
+            Console.WriteLine($@"Actual Answer: {card.Answer}");
+            Console.WriteLine("New card answer: (Leave empty to leave actual)");
+            input = Console.ReadLine();
+            if (input.Length > 0)
+            {
+                card.Answer = input;
+            }
+
+            SqlConnection connection = new SqlConnection(connectionString);
+            using (connection)
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandText =
+                    $@"UPDATE card SET Question = ('{card.Question}'), Answer = ('{card.Answer}') WHERE Id = ('{card.Id}')";
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+            Console.WriteLine("Stack successfully updated.");
+        }
     }
 }
