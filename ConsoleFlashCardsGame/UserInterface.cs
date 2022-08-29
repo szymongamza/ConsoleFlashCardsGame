@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConsoleFlashCardsGame.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,7 +31,6 @@ namespace ConsoleFlashCardsGame
                         break;
                     case 1:
                         Console.Clear();
-                        Console.WriteLine("SHOW TABLE HERE");
                         ConfigureStacksMenu();
                         break;
                     default:
@@ -46,6 +46,8 @@ namespace ConsoleFlashCardsGame
             bool goBack = false;
             while (goBack == false)
             {
+                Console.Clear();
+                List<Stack> stacks = StacksController.GetStacks();
 
                 Console.WriteLine("+---------------------------------------------+");
                 Console.WriteLine("|           CONFIGURE STACKS MENU             |");
@@ -68,14 +70,44 @@ namespace ConsoleFlashCardsGame
                         StacksController.CreateStack();
                         break;
                     case 2:
-                        Console.Clear();
-                        //Show cards
-                        EditStackMenu();
-                        break;
+                        if(stacks.Count == 0)
+                        {
+                            Console.WriteLine("There are no stacks yet. Create one first!");
+                            break;
+                        }
+                        else
+                        {
+                            Stack stack = null;
+                            while (stack == null)
+                            {
+                                string input = InputValidation.StringInput("Input name of the stack to edit it:");
+                                stack = StacksController.GetStackByName(input, stacks);
+                            }
+                            Console.Clear();
+                            //Show cards
+                            EditStackMenu(stack);
+                            break;
+                        }
+                        
                     case 3:
-                        Console.Clear();
-                        //Delete Stack
-                        break;
+                        if (stacks.Count == 0)
+                        {
+                            Console.WriteLine("There are no stacks yet. Create one first!");
+                            break;
+                        }
+                        else
+                        {
+                            Stack stack = null;
+                            while (stack == null)
+                            {
+                                string input = InputValidation.StringInput("Input name of the stack to edit it:");
+                                stack = StacksController.GetStackByName(input, stacks);
+                            }
+                            Console.Clear();
+                            //Show cards
+                            StacksController.DeleteStack(stack);
+                            break;
+                        }
                     default:
                         Console.Clear();
                         ShowOptionError();
@@ -83,14 +115,15 @@ namespace ConsoleFlashCardsGame
                 }
             }
         }
-        public static void EditStackMenu()
+        public static void EditStackMenu(Stack stack)
         {
             bool goBack = false;
             while (goBack == false)
             {
-
+                Console.Clear();
+                List<Card> cards = CardsController.GetCardsByStack(stack);
                 Console.WriteLine("+---------------------------------------------+");
-                Console.WriteLine("|              EDIT STACK MENU                |");
+                Console.WriteLine($@"           EDIT '{stack.Name}' STACK MENU                ");
                 Console.WriteLine("+---------------------------------------------+");
                 Console.WriteLine("|    Type 0 to go back                        |");
                 Console.WriteLine("|    Type 1 to Change name of stack           |");
@@ -108,11 +141,11 @@ namespace ConsoleFlashCardsGame
                         break;
                     case 1:
                         Console.Clear();
-                        //ChangeNameOfStack();
+                        StacksController.UpdateStackName(stack);
                         break;
                     case 2:
                         Console.Clear();
-                        //AddCardToStack();
+                        CardsController.CreateCard(stack);
                         break;
                     case 3:
                         Console.Clear();

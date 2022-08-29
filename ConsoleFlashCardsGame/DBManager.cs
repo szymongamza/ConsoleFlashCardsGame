@@ -35,7 +35,7 @@ namespace ConsoleFlashCardsGame
                                 Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
                                 Question varchar(100) NOT NULL,
                                 Answer varchar(100) NOT NULL,
-                                StackId int NOT NULL FOREIGN KEY REFERENCES stacks(Id) ON DELETE CASCADE ON UPDATE CASCADE
+                                StackId int NOT NULL FOREIGN KEY REFERENCES stack(Id) ON DELETE CASCADE ON UPDATE CASCADE
                             );
                         ";
                     command.ExecuteNonQuery();

@@ -34,7 +34,7 @@ namespace ConsoleFlashCardsGame
         {
             List<Stack> stacks = new List<Stack>();
             SqlConnection connection = new SqlConnection(connectionString);
-            using(connection)
+            using (connection)
             {
                 connection.Open();
                 var command = connection.CreateCommand();
@@ -55,7 +55,48 @@ namespace ConsoleFlashCardsGame
                 }
                 reader.Close();
             }
+            TableVisualizer.ShowTable(stacks, null);
             return stacks;
+        }
+        public static void DeleteStack(Stack stack)
+        {
+            SqlConnection connection = new SqlConnection(connectionString);
+            using (connection)
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandText =
+                    $@"DELETE FROM stack WHERE Id = ('{stack.Id}')";
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+            Console.WriteLine("Stack successfully deleted.");
+        }
+        public static void UpdateStackName(Stack stack)
+        {
+            stack.Name = InputValidation.StringInput("Enter new stack name:");
+            SqlConnection connection = new SqlConnection(connectionString);
+            using (connection)
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandText =
+                    $@"UPDATE stack SET Name = ('{stack.Name}') WHERE Id = ('{stack.Id}')";
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+            Console.WriteLine("Stack successfully updated.");
+        }
+        public static Stack GetStackByName(string input, List<Stack> stacks)
+        {
+            foreach(Stack stack in stacks)
+            {
+                if(stack.Name == input)
+                {
+                    return stack;
+                }
+            }
+            return null;
         }
     }
 }
