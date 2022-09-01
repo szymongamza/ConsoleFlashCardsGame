@@ -98,5 +98,35 @@ namespace ConsoleFlashCardsGame
             }
             return null;
         }
+        public static List<CardWithStackName> GetStackWithCards(Stack stack)
+        {
+            List<CardWithStackName> cards = new List<CardWithStackName>();
+            SqlConnection connection = new SqlConnection(connectionString);
+            using (connection)
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandText =
+                    $@"SELECT * FROM card WHERE StackId = ('{stack.Id}')";
+
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        //TODO
+                        cards.Add(new CardWithStackName { Id = reader.GetInt32(0), Question = reader.GetString(1), Answer = reader.GetString(2), StackName=stack.Name });
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No rows found!");
+                }
+                reader.Close();
+            }
+            //DTO
+            TableVisualizer.ShowTable(cards, null);
+            return cards;
+        }
     }
 }

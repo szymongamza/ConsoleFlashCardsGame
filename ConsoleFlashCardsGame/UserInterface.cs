@@ -180,7 +180,6 @@ namespace ConsoleFlashCardsGame
                                 card = CardsController.GetCardById(input, cards);
                             }
                             Console.Clear();
-                            //Show cards
                             CardsController.DeleteCard(card);
                             break;
                         }
