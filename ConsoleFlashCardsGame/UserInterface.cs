@@ -33,6 +33,10 @@ namespace ConsoleFlashCardsGame
                         Console.Clear();
                         ConfigureStacksMenu();
                         break;
+                    case 2:
+                        Console.Clear();
+                        GameEngine.RunGame();
+                        break;
                     default:
                         Console.Clear();
                         ShowOptionError();
