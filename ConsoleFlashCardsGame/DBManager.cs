@@ -38,6 +38,22 @@ namespace ConsoleFlashCardsGame
                                 StackId int NOT NULL FOREIGN KEY REFERENCES stack(Id) ON DELETE CASCADE ON UPDATE CASCADE
                             );
                         ";
+                    command.ExecuteNonQuery();   
+                    
+                    command.CommandText =
+                        $@" IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'session')
+                            CREATE TABLE session (
+                                Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+                                StartDateTime datetime NOT NULL,
+                                EndDateTime datetime NOT NULL,
+                                StackId int NOT NULL FOREIGN KEY REFERENCES stack(Id) ON DELETE CASCADE ON UPDATE CASCADE,
+                                StackName varchar(100) NOT NULL,
+                                CorrectAnswers int NOT NULL,
+                                TotalAnswers int NOT NULL,
+                                TotalCards int NOT NULL
+                                
+                            );
+                        ";
                     command.ExecuteNonQuery();
 
                     connection.Close();

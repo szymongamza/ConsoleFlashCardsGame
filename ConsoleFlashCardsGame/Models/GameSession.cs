@@ -11,7 +11,7 @@ namespace ConsoleFlashCardsGame.Models
         public int Id { get; set; }
         public DateTime StartDateTime { get; set; }
         public DateTime EndDateTime { get; set; }
-        public string StackName { get; set; }
+        public Stack StackO { get; set; }
         public int CorrectAnswers { get; set; }
         public int TotalAnswers { get; set; }
         public int TotalCards { get; set; }

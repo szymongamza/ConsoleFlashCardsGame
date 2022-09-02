@@ -11,7 +11,7 @@ namespace ConsoleFlashCardsGame
 {
     public static class StacksController
     {
-        public static string connectionString = ConfigurationManager.ConnectionStrings["FlashCardsDBConnectionString"].ConnectionString;
+        static string connectionString = ConfigurationManager.ConnectionStrings["FlashCardsDBConnectionString"].ConnectionString;
         public static void CreateStack()
         {
             Stack stack = new();

@@ -10,15 +10,16 @@ namespace ConsoleFlashCardsGame
     public class GameEngine
     {
         static bool saveStats;
+        static GameSession session = new GameSession();
         public static void  RunGame()
         {
             List<CardWithStackName> cards = SelectStack();
             if(cards.Count > 0)
             {
                 SelectGameMode();
-                GameSession session = new GameSession() { TotalCards = cards.Count, StackName = cards.First().StackName};
+                session.TotalCards = cards.Count;
                 Console.Clear();
-                Console.WriteLine(@$"There is {session.TotalCards} cards to guess in {session.StackName} stack");
+                Console.WriteLine(@$"There is {session.TotalCards} cards to guess in {session.StackO.Name} stack");
                 Console.WriteLine($@"To start press enter");
                 Console.ReadLine();
                 Console.Clear();
