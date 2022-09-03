@@ -89,7 +89,7 @@ namespace ConsoleFlashCardsGame
             Console.WriteLine($@"Actual Question: {card.Question}");
             Console.WriteLine("New card question: (Leave empty to leave actual)");
             string input = Console.ReadLine();
-            if(input.Length > 0)
+            if (input.Length > 0)
             {
                 card.Question = input;
             }

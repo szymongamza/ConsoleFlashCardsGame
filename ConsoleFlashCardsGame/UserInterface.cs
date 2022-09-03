@@ -21,6 +21,7 @@ namespace ConsoleFlashCardsGame
                 Console.WriteLine("|    Type 0 to quit app                       |");
                 Console.WriteLine("|    Type 1 to Configure stacks               |");
                 Console.WriteLine("|    Type 2 to Play FlashCards                |");
+                Console.WriteLine("|    Type 3 to Show stats from game           |");
                 Console.WriteLine("+---------------------------------------------+");
 
                 int option = InputValidation.IntInput("Choose option from above menu.");
@@ -36,6 +37,10 @@ namespace ConsoleFlashCardsGame
                     case 2:
                         Console.Clear();
                         GameEngine.RunGame();
+                        break;                
+                    case 3:
+                        Console.Clear();
+                        SessionController.GetSessions();
                         break;
                     default:
                         Console.Clear();

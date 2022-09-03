@@ -73,7 +73,7 @@ namespace ConsoleFlashCardsGame
             }
             if (saveStats)
             {
-                //update session to db
+                SessionController.UploadSession(session);
             }
             return;
             
@@ -97,6 +97,7 @@ namespace ConsoleFlashCardsGame
                     string input = InputValidation.StringInput("Input name of the stack you want to play:");
                     stack = StacksController.GetStackByName(input, stacks);
                 }
+                session.StackO = stack;
                 List<CardWithStackName> cards = StacksController.GetStackWithCards(stack);
                 Console.Clear();
                 Console.WriteLine($@"Loaded {cards.Count()} cards");
@@ -105,15 +106,14 @@ namespace ConsoleFlashCardsGame
         }
         public static void SelectGameMode()
         {
-            bool goBack = false;
-            while (goBack == false)
+            bool end = false;
+            while (end == false)
             {
                 Console.WriteLine("+---------------------------------------------+");
                 Console.WriteLine($@"               GAMEMODE MENU                  ");
                 Console.WriteLine("+---------------------------------------------+");
-                Console.WriteLine("|    Type 0 to go back                        |");
-                Console.WriteLine("|    Type 1 to Play with stats                |");
-                Console.WriteLine("|    Type 2 to Play training                  |");
+                Console.WriteLine("|    Type 0 to Play with stats                |");
+                Console.WriteLine("|    Type 1 to Play training                  |");
                 Console.WriteLine("+---------------------------------------------+");
 
                 int option = InputValidation.IntInput("Choose option from above menu.");
@@ -121,15 +121,13 @@ namespace ConsoleFlashCardsGame
                 {
                     case 0:
                         Console.Clear();
-                        goBack = true;
+                        saveStats = true;
+                        end = true;
                         break;
                     case 1:
                         Console.Clear();
-                        saveStats = true;
-                        break;
-                    case 2:
-                        Console.Clear();
                         saveStats = false;
+                        end = true;
                         break;
                     default:
                         Console.Clear();

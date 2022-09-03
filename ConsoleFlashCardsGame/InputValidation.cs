@@ -36,7 +36,7 @@ namespace ConsoleFlashCardsGame
         {
             Console.WriteLine($"{outputText}");
             var input = Console.ReadLine();
-            while(input == null)
+            while(input == "")
             {
                 Console.WriteLine("You must write something!");
                 input = Console.ReadLine();
